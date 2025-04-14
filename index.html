@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Countdown nach Las Vegas</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #000000, #990000);
+      color: #FFD700;
+      font-family: 'Arial Black', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 40px;
+      animation: pulse 2s infinite;
+    }
+
+    #countdown {
+      font-size: 5em;
+      display: flex;
+      gap: 20px;
+    }
+
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .number {
+      font-size: 2em;
+      color: #FFFFFF;
+    }
+
+    .label {
+      font-size: 0.4em;
+      color: #FFD700;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Noch <span id="text-days"></span> Tage bis Las Vegas – ServiceNow K25, ich komme! 🎉✈️</h1>
+  <div id="countdown">
+    <div class="unit">
+      <div class="number" id="days">00</div>
+      <div class="label">Tage</div>
+    </div>
+    <div class="unit">
+      <div class="number" id="hours">00</div>
+      <div class="label">Stunden</div>
+    </div>
+    <div class="unit">
+      <div class="number" id="minutes">00</div>
+      <div class="label">Min</div>
+    </div>
+    <div class="unit">
+      <div class="number" id="seconds">00</div>
+      <div class="label">Sek</div>
+    </div>
+  </div>
+
+  <script>
+    const targetDate = new Date("2025-05-05T13:45:00+02:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+      document.getElementById("text-days").innerText = days;
+
+      if (distance < 0) {
+        document.querySelector("h1").innerText = "Ab nach Vegas – es ist soweit! ✈️🎰";
+        document.getElementById("countdown").style.display = "none";
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
